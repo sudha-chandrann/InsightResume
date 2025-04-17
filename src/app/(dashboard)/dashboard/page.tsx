@@ -101,7 +101,7 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen">
       <main className="py-8 relative z-10">
-        <div className="container px-4 md:px-6">
+        <div className="container px-4 md:px-6 mx-auto">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
             <div>
               <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-2">My Dashboard</h1>

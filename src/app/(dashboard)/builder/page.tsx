@@ -451,7 +451,7 @@ const ResumeBuilder = () => {
   };
 
   return (
-    <main className="flex-grow py-8 bg-gray-900 text-gray-100 min-h-screen">
+    <main className="flex-grow py-8  text-gray-100 min-h-screen">
       <div className="container px-4 md:px-6 mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-blue-400 mb-2">
@@ -519,7 +519,7 @@ const ResumeBuilder = () => {
               <Card className="mt-4 border-t-0 rounded-t-none bg-gray-800 border-gray-700">
                 <CardContent className="pt-6">
                   <ScrollArea className="h-[calc(100vh-350px)]">
-                    
+
                     <TabsContent value="personal" className="space-y-4 mt-0">
                       <div className="space-y-4">
                         <div>
