@@ -4,8 +4,6 @@ import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import {
   UserRound,
   GraduationCap,
@@ -13,130 +11,19 @@ import {
   Code,
   Code2,
   Download,
-  Trash2,
-  PlusCircle,
-  Sparkles,
   Trophy,
-  Link as LinkIcon,
 } from "lucide-react";
-import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import ResumePreview from "../_components/ResumePreview";
+import { defaultValues, FormValues } from "@/types";
+import PersonalInfoForm from "./_components/PersonalInfoForm";
+import EducationForm from "./_components/EducationForm";
+import ExperienceForm from "./_components/ExperienceForm";
+import ProjectsForm from "./_components/ProjectsForm";
+import PositionsForm from "./_components/PositionsForm";
+import SkillsForm from "./_components/SkillsForm";
 
-type FormValues = {
-  personalInfo: {
-    fullName: string;
-    email: string;
-    phone: string;
-    location: string;
-    title: string;
-    summary: string;
-  };
-  education: Array<{
-    id: string;
-    school: string;
-    degree: string;
-    fieldOfStudy: string;
-    startDate: string;
-    endDate: string;
-    CGPA: string;
-  }>;
-  experience: Array<{
-    id: string;
-    company: string;
-    position: string;
-    startDate: string;
-    endDate: string;
-    description: string;
-    bulletPoints: string[];
-  }>;
-  projects: Array<{
-    id: string;
-    title: string;
-    liveLink: string;
-    bulletPoints: string[];
-  }>;
-  positions: Array<{
-    id: string;
-    title: string;
-    organization: string;
-    startDate: string;
-    endDate: string;
-    bulletPoints: string[];
-  }>;
-  skills: Array<{
-    id: string;
-    category: string;
-    name: string;
-  }>;
-};
 
-const defaultValues: FormValues = {
-  personalInfo: {
-    fullName: "",
-    email: "",
-    phone: "",
-    location: "",
-    title: "",
-    summary: "",
-  },
-  education: [
-    {
-      id: "1",
-      school: "",
-      degree: "",
-      fieldOfStudy: "",
-      startDate: "",
-      endDate: "",
-      CGPA: "",
-    },
-  ],
-  experience: [
-    {
-      id: "1",
-      company: "",
-      position: "",
-      startDate: "",
-      endDate: "",
-      description: "",
-      bulletPoints: [""], 
-    },
-  ],
-  projects: [
-    {
-      id: "1",
-      title: "",
-      liveLink: "",
-      bulletPoints: [""],
-    },
-  ],
-  positions: [
-    {
-      id: "1",
-      title: "",
-      organization: "",
-      startDate: "",
-      endDate: "",
-      bulletPoints: [""],
-    },
-  ],
-  skills: [
-    {
-      id: "1",
-      category: "Programming Languages",
-      name: "",
-    },
-  ],
-};
-
-const skillCategories = [
-  "Programming Languages",
-  "Frameworks & Libraries",
-  "Tools & Technologies",
-  "Soft Skills",
-  "Languages",
-  "Other",
-];
 
 const ResumeBuilder = () => {
   const [formData, setFormData] = useState<FormValues>(defaultValues);
@@ -479,6 +366,7 @@ const ResumeBuilder = () => {
                   <UserRound className="h-4 w-4" />
                   <span className="hidden sm:inline">Personal</span>
                 </TabsTrigger>
+
                 <TabsTrigger
                   value="education"
                   className="flex items-center gap-1 data-[state=active]:bg-gray-700"
@@ -486,6 +374,7 @@ const ResumeBuilder = () => {
                   <GraduationCap className="h-4 w-4" />
                   <span className="hidden sm:inline">Education</span>
                 </TabsTrigger>
+
                 <TabsTrigger
                   value="experience"
                   className="flex items-center gap-1 data-[state=active]:bg-gray-700"
@@ -493,6 +382,7 @@ const ResumeBuilder = () => {
                   <Briefcase className="h-4 w-4" />
                   <span className="hidden sm:inline">Experience</span>
                 </TabsTrigger>
+
                 <TabsTrigger
                   value="projects"
                   className="flex items-center gap-1 data-[state=active]:bg-gray-700"
@@ -500,6 +390,7 @@ const ResumeBuilder = () => {
                   <Code2 className="h-4 w-4" />
                   <span className="hidden sm:inline">Projects</span>
                 </TabsTrigger>
+                
                 <TabsTrigger
                   value="skills"
                   className="flex items-center gap-1 data-[state=active]:bg-gray-700"
@@ -521,916 +412,68 @@ const ResumeBuilder = () => {
                   <ScrollArea className="h-[calc(100vh-350px)]">
 
                     <TabsContent value="personal" className="space-y-4 mt-0">
-                      <div className="space-y-4">
-                        <div>
-                          <Label htmlFor="fullName" className="text-gray-300">
-                            Full Name
-                          </Label>
-                          <Input
-                            id="fullName"
-                            placeholder="John Doe"
-                            value={formData.personalInfo.fullName}
-                            onChange={(e) =>
-                              updatePersonalInfo("fullName", e.target.value)
-                            }
-                            className="bg-gray-700 border-gray-600 text-gray-100"
-                          />
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <div>
-                            <Label htmlFor="email" className="text-gray-300">
-                              Email
-                            </Label>
-                            <Input
-                              id="email"
-                              type="email"
-                              placeholder="john@example.com"
-                              value={formData.personalInfo.email}
-                              onChange={(e) =>
-                                updatePersonalInfo("email", e.target.value)
-                              }
-                              className="bg-gray-700 border-gray-600 text-gray-100"
-                            />
-                          </div>
-                          <div>
-                            <Label htmlFor="phone" className="text-gray-300">
-                              Phone
-                            </Label>
-                            <Input
-                              id="phone"
-                              placeholder="(123) 456-7890"
-                              value={formData.personalInfo.phone}
-                              onChange={(e) =>
-                                updatePersonalInfo("phone", e.target.value)
-                              }
-                              className="bg-gray-700 border-gray-600 text-gray-100"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <div>
-                            <Label htmlFor="location" className="text-gray-300">
-                              Location
-                            </Label>
-                            <Input
-                              id="location"
-                              placeholder="New York, NY"
-                              value={formData.personalInfo.location}
-                              onChange={(e) =>
-                                updatePersonalInfo("location", e.target.value)
-                              }
-                              className="bg-gray-700 border-gray-600 text-gray-100"
-                            />
-                          </div>
-                          <div>
-                            <Label htmlFor="title" className="text-gray-300">
-                              Job Title
-                            </Label>
-                            <Input
-                              id="title"
-                              placeholder="Software Developer"
-                              value={formData.personalInfo.title}
-                              onChange={(e) =>
-                                updatePersonalInfo("title", e.target.value)
-                              }
-                              className="bg-gray-700 border-gray-600 text-gray-100"
-                            />
-                          </div>
-                        </div>
-
-                        <div>
-                          <div className="flex items-center justify-between mb-2">
-                            <Label htmlFor="summary" className="text-gray-300">
-                              Professional Summary
-                            </Label>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="h-8 text-xs bg-gray-700 hover:bg-gray-600 border-gray-600 text-blue-300"
-                              onClick={() => generateAISuggestions("summary")}
-                            >
-                              <Sparkles className="h-3 w-3 mr-1" />
-                              AI Suggestion
-                            </Button>
-                          </div>
-                          <Textarea
-                            id="summary"
-                            placeholder="A brief summary of your professional background and goals..."
-                            className="min-h-[120px] bg-gray-700 border-gray-600 text-gray-100"
-                            value={formData.personalInfo.summary}
-                            onChange={(e) =>
-                              updatePersonalInfo("summary", e.target.value)
-                            }
-                          />
-                        </div>
-                      </div>
+                    <PersonalInfoForm
+                formData={formData}
+                updatePersonalInfo={updatePersonalInfo}
+                generateAISuggestions={generateAISuggestions}
+              />
                     </TabsContent>
 
                     <TabsContent value="education" className="space-y-6 mt-0">
-                      {formData.education.map((edu, index) => (
-                        <div
-                          key={edu.id}
-                          className="space-y-4 pb-6 border-b border-gray-700 last:border-0"
-                        >
-                          <div className="flex justify-between items-center">
-                            <h3 className="font-medium text-blue-300">
-                              Education #{index + 1}
-                            </h3>
-                            {formData.education.length > 1 && (
-                              <Button
-                                variant="outline"
-                                size="icon"
-                                onClick={() => removeEducation(edu.id)}
-                                className="bg-gray-700 hover:bg-gray-600 border-gray-600 text-red-300"
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </Button>
-                            )}
-                          </div>
-
-                          <div>
-                            <Label
-                              htmlFor={`school-${edu.id}`}
-                              className="text-gray-300"
-                            >
-                              School/University
-                            </Label>
-                            <Input
-                              id={`school-${edu.id}`}
-                              placeholder="Harvard University"
-                              value={edu.school}
-                              onChange={(e) =>
-                                updateEducation(
-                                  edu.id,
-                                  "school",
-                                  e.target.value
-                                )
-                              }
-                              className="bg-gray-700 border-gray-600 text-gray-100"
-                            />
-                          </div>
-
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                              <Label
-                                htmlFor={`degree-${edu.id}`}
-                                className="text-gray-300"
-                              >
-                                Degree
-                              </Label>
-                              <Input
-                                id={`degree-${edu.id}`}
-                                placeholder="Bachelor of Science"
-                                value={edu.degree}
-                                onChange={(e) =>
-                                  updateEducation(
-                                    edu.id,
-                                    "degree",
-                                    e.target.value
-                                  )
-                                }
-                                className="bg-gray-700 border-gray-600 text-gray-100"
-                              />
-                            </div>
-                            <div>
-                              <Label
-                                htmlFor={`field-${edu.id}`}
-                                className="text-gray-300"
-                              >
-                                Field of Study
-                              </Label>
-                              <Input
-                                id={`field-${edu.id}`}
-                                placeholder="Computer Science"
-                                value={edu.fieldOfStudy}
-                                onChange={(e) =>
-                                  updateEducation(
-                                    edu.id,
-                                    "fieldOfStudy",
-                                    e.target.value
-                                  )
-                                }
-                                className="bg-gray-700 border-gray-600 text-gray-100"
-                              />
-                            </div>
-                          </div>
-
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                              <Label
-                                htmlFor={`eduStartDate-${edu.id}`}
-                                className="text-gray-300"
-                              >
-                                Start Date
-                              </Label>
-                              <Input
-                                id={`eduStartDate-${edu.id}`}
-                                placeholder="Sep 2018"
-                                value={edu.startDate}
-                                onChange={(e) =>
-                                  updateEducation(
-                                    edu.id,
-                                    "startDate",
-                                    e.target.value
-                                  )
-                                }
-                                className="bg-gray-700 border-gray-600 text-gray-100"
-                              />
-                            </div>
-                            <div>
-                              <Label
-                                htmlFor={`eduEndDate-${edu.id}`}
-                                className="text-gray-300"
-                              >
-                                End Date
-                              </Label>
-                              <Input
-                                id={`eduEndDate-${edu.id}`}
-                                placeholder="May 2022 (or Present)"
-                                value={edu.endDate}
-                                onChange={(e) =>
-                                  updateEducation(
-                                    edu.id,
-                                    "endDate",
-                                    e.target.value
-                                  )
-                                }
-                                className="bg-gray-700 border-gray-600 text-gray-100"
-                              />
-                            </div>
-                          </div>
-
-                          <div>
-                            <div className="flex items-center justify-between mb-2 ">
-                              <Label
-                                htmlFor={`eduCGPA-${edu.id}`}
-                                className="text-gray-300"
-                              >
-                                CGPA
-                              </Label>
-                            </div>
-                            <Input
-                              id={`eduDescription-${edu.id}`}
-                              placeholder="CGPA"
-                              className="bg-gray-700 border-gray-600 text-gray-100"
-                              value={edu.CGPA}
-                              onChange={(e) =>
-                                updateEducation(
-                                  edu.id,
-                                  "CGPA",
-                                  e.target.value
-                                )
-                              }
-                            />
-                          </div>
-                        </div>
-                      ))}
-
-                      <Button
-                        variant="outline"
-                        onClick={addEducation}
-                        className="w-full bg-gray-700 hover:bg-gray-600 border-gray-600 text-blue-300"
-                      >
-                        <PlusCircle className="h-4 w-4 mr-2" />
-                        Add Education
-                      </Button>
-                    </TabsContent>
+                    <EducationForm
+                       formData={formData}
+                       updateEducation={updateEducation}
+                       removeEducation={removeEducation}
+                        addEducation={addEducation}
+                       />
+                     </TabsContent>
 
                     <TabsContent value="experience" className="space-y-6 mt-0">
-                      {formData.experience.map((exp, index) => (
-                        <div
-                          key={exp.id}
-                          className="space-y-4 pb-6 border-b border-gray-700 last:border-0"
-                        >
-                          <div className="flex justify-between items-center">
-                            <h3 className="font-medium text-blue-300">
-                              Experience #{index + 1}
-                            </h3>
-                            {formData.experience.length > 1 && (
-                              <Button
-                                variant="outline"
-                                size="icon"
-                                onClick={() => removeExperience(exp.id)}
-                                className="bg-gray-700 hover:bg-gray-600 border-gray-600 text-red-300"
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </Button>
-                            )}
-                          </div>
-
-                          <div>
-                            <Label
-                              htmlFor={`company-${exp.id}`}
-                              className="text-gray-300"
-                            >
-                              Company
-                            </Label>
-                            <Input
-                              id={`company-${exp.id}`}
-                              placeholder="Google Inc."
-                              value={exp.company}
-                              onChange={(e) =>
-                                updateExperience(
-                                  exp.id,
-                                  "company",
-                                  e.target.value
-                                )
-                              }
-                              className="bg-gray-700 border-gray-600 text-gray-100"
-                            />
-                          </div>
-
-                          <div>
-                            <Label
-                              htmlFor={`position-${exp.id}`}
-                              className="text-gray-300"
-                            >
-                              Position
-                            </Label>
-                            <Input
-                              id={`position-${exp.id}`}
-                              placeholder="Senior Software Engineer"
-                              value={exp.position}
-                              onChange={(e) =>
-                                updateExperience(
-                                  exp.id,
-                                  "position",
-                                  e.target.value
-                                )
-                              }
-                              className="bg-gray-700 border-gray-600 text-gray-100"
-                            />
-                          </div>
-
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                              <Label
-                                htmlFor={`expStartDate-${exp.id}`}
-                                className="text-gray-300"
-                              >
-                                Start Date
-                              </Label>
-                              <Input
-                                id={`expStartDate-${exp.id}`}
-                                placeholder="Jan 2020"
-                                value={exp.startDate}
-                                onChange={(e) =>
-                                  updateExperience(
-                                    exp.id,
-                                    "startDate",
-                                    e.target.value
-                                  )
-                                }
-                                className="bg-gray-700 border-gray-600 text-gray-100"
-                              />
-                            </div>
-                            <div>
-                              <Label
-                                htmlFor={`expEndDate-${exp.id}`}
-                                className="text-gray-300"
-                              >
-                                End Date
-                              </Label>
-                              <Input
-                                id={`expEndDate-${exp.id}`}
-                                placeholder="Present"
-                                value={exp.endDate}
-                                onChange={(e) =>
-                                  updateExperience(
-                                    exp.id,
-                                    "endDate",
-                                    e.target.value
-                                  )
-                                }
-                                className="bg-gray-700 border-gray-600 text-gray-100"
-                              />
-                            </div>
-                          </div>
-
-                          <div>
-                            <div className="flex items-center justify-between mb-2">
-                              <Label className="text-gray-300">
-                                Key Responsibilities & Achievements
-                              </Label>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() =>
-                                  addBulletPoint("experience", exp.id)
-                                }
-                                className="h-8 text-xs bg-gray-700 hover:bg-gray-600 border-gray-600 text-blue-300"
-                              >
-                                <PlusCircle className="h-3 w-3 mr-1" />
-                                Add Point
-                              </Button>
-                            </div>
-
-                            {exp.bulletPoints.map((point, i) => (
-                              <div key={i} className="flex items-start mb-2">
-                                <div className="flex-grow">
-                                  <div className="flex items-center">
-                                    <span className="mr-2 text-gray-500">
-                                      •
-                                    </span>
-                                    <Input
-                                      value={point}
-                                      placeholder={`Bullet point ${i + 1}`}
-                                      onChange={(e) =>
-                                        updateBulletPoint(
-                                          "experience",
-                                          exp.id,
-                                          i,
-                                          e.target.value
-                                        )
-                                      }
-                                      className="bg-gray-700 border-gray-600 text-gray-100"
-                                    />
-                                  </div>
-                                </div>
-                                <div className="flex ml-2">
-                                  <Button
-                                    variant="outline"
-                                    size="icon"
-                                    className="h-10 w-10 bg-gray-700 hover:bg-gray-600 border-gray-600 text-blue-300"
-                                    onClick={() =>
-                                      generateAISuggestions(
-                                        "experience",
-                                        exp.id,
-                                        i
-                                      )
-                                    }
-                                  >
-                                    <Sparkles className="h-4 w-4" />
-                                  </Button>
-                                  {exp.bulletPoints.length > 1 && (
-                                    <Button
-                                      variant="outline"
-                                      size="icon"
-                                      className="h-10 w-10 ml-1 bg-gray-700 hover:bg-gray-600 border-gray-600 text-red-300"
-                                      onClick={() =>
-                                        removeBulletPoint(
-                                          "experience",
-                                          exp.id,
-                                          i
-                                        )
-                                      }
-                                    >
-                                      <Trash2 className="h-4 w-4" />
-                                    </Button>
-                                  )}
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-
-                      <Button
-                        variant="outline"
-                        onClick={addExperience}
-                        className="w-full bg-gray-700 hover:bg-gray-600 border-gray-600 text-blue-300"
-                      >
-                        <PlusCircle className="h-4 w-4 mr-2" />
-                        Add Experience
-                      </Button>
+                    <ExperienceForm
+                formData={formData}
+                updateExperience={updateExperience}
+                removeExperience={removeExperience}
+                addExperience={addExperience}
+                addBulletPoint={addBulletPoint}
+                updateBulletPoint={updateBulletPoint}
+                removeBulletPoint={removeBulletPoint}
+                generateAISuggestions={generateAISuggestions}
+              />
                     </TabsContent>
 
                     <TabsContent value="skills" className="space-y-6 mt-0">
-                      {formData.skills.map((skill) => (
-                        <div
-                          key={skill.id}
-                          className="space-y-4 flex items-center gap-4"
-                        >
-                          <div className="flex-grow">
-                            <Label
-                              htmlFor={`skillCategory-${skill.id}`}
-                              className="text-gray-300"
-                            >
-                              Category
-                            </Label>
-                            <select
-                              id={`skillCategory-${skill.id}`}
-                              className="flex h-10 w-full rounded-md border border-gray-600 bg-gray-700 px-3 py-2 text-sm text-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                              value={skill.category}
-                              onChange={(e) =>
-                                updateSkill(
-                                  skill.id,
-                                  "category",
-                                  e.target.value
-                                )
-                              }
-                            >
-                              {skillCategories.map((category) => (
-                                <option key={category} value={category}>
-                                  {category}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-
-                          <div className="flex-grow">
-                            <Label
-                              htmlFor={`skill-${skill.id}`}
-                              className="text-gray-300"
-                            >
-                              Skill
-                            </Label>
-                            <Input
-                              id={`skill-${skill.id}`}
-                              placeholder="JavaScript"
-                              value={skill.name}
-                              onChange={(e) =>
-                                updateSkill(skill.id, "name", e.target.value)
-                              }
-                              className="bg-gray-700 border-gray-600 text-gray-100"
-                            />
-                          </div>
-
-                          {formData.skills.length > 1 && (
-                            <Button
-                              variant="outline"
-                              size="icon"
-                              className="mt-8 bg-gray-700 hover:bg-gray-600 border-gray-600 text-red-300"
-                              onClick={() => removeSkill(skill.id)}
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          )}
-                        </div>
-                      ))}
-
-                      <Button
-                        variant="outline"
-                        onClick={addSkill}
-                        className="w-full bg-gray-700 hover:bg-gray-600 border-gray-600 text-blue-300"
-                      >
-                        <PlusCircle className="h-4 w-4 mr-2" />
-                        Add Skill
-                      </Button>
+                    <ProjectsForm
+                formData={formData}
+                updateProject={updateProject}
+                removeProject={removeProject}
+                addProject={addProject}
+                addBulletPoint={addBulletPoint}
+                updateBulletPoint={updateBulletPoint}
+                removeBulletPoint={removeBulletPoint}
+                generateAISuggestions={generateAISuggestions}
+              />
                     </TabsContent>
 
                     <TabsContent value="positions" className="space-y-6 mt-0">
-                      {formData.positions.map((pos, index) => (
-                        <div
-                          key={pos.id}
-                          className="space-y-4 pb-6 border-b border-gray-700 last:border-0"
-                        >
-                          <div className="flex justify-between items-center">
-                            <h3 className="font-medium text-blue-300">
-                              Position #{index + 1}
-                            </h3>
-                            {formData.positions.length > 1 && (
-                              <Button
-                                variant="outline"
-                                size="icon"
-                                onClick={() => removePosition(pos.id)}
-                                className="bg-gray-700 hover:bg-gray-600 border-gray-600 text-red-300"
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </Button>
-                            )}
-                          </div>
-
-                          <div>
-                            <Label
-                              htmlFor={`posTitle-${pos.id}`}
-                              className="text-gray-300"
-                            >
-                              Position Title
-                            </Label>
-                            <Input
-                              id={`posTitle-${pos.id}`}
-                              placeholder="Team Lead / Club President"
-                              value={pos.title}
-                              onChange={(e) =>
-                                updatePosition(pos.id, "title", e.target.value)
-                              }
-                              className="bg-gray-700 border-gray-600 text-gray-100"
-                            />
-                          </div>
-
-                          <div>
-                            <Label
-                              htmlFor={`organization-${pos.id}`}
-                              className="text-gray-300"
-                            >
-                              Organization
-                            </Label>
-                            <Input
-                              id={`organization-${pos.id}`}
-                              placeholder="Computer Science Club"
-                              value={pos.organization}
-                              onChange={(e) =>
-                                updatePosition(
-                                  pos.id,
-                                  "organization",
-                                  e.target.value
-                                )
-                              }
-                              className="bg-gray-700 border-gray-600 text-gray-100"
-                            />
-                          </div>
-
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                              <Label
-                                htmlFor={`posStartDate-${pos.id}`}
-                                className="text-gray-300"
-                              >
-                                Start Date
-                              </Label>
-                              <Input
-                                id={`posStartDate-${pos.id}`}
-                                placeholder="Sep 2020"
-                                value={pos.startDate}
-                                onChange={(e) =>
-                                  updatePosition(
-                                    pos.id,
-                                    "startDate",
-                                    e.target.value
-                                  )
-                                }
-                                className="bg-gray-700 border-gray-600 text-gray-100"
-                              />
-                            </div>
-                            <div>
-                              <Label
-                                htmlFor={`posEndDate-${pos.id}`}
-                                className="text-gray-300"
-                              >
-                                End Date
-                              </Label>
-                              <Input
-                                id={`posEndDate-${pos.id}`}
-                                placeholder="Present"
-                                value={pos.endDate}
-                                onChange={(e) =>
-                                  updatePosition(
-                                    pos.id,
-                                    "endDate",
-                                    e.target.value
-                                  )
-                                }
-                                className="bg-gray-700 border-gray-600 text-gray-100"
-                              />
-                            </div>
-                          </div>
-
-                          <div>
-                            <div className="flex items-center justify-between mb-2">
-                              <Label
-                                htmlFor={`achievements-${pos.id}`}
-                                className="text-gray-300"
-                              >
-                                Achievements & Responsibilities
-                              </Label>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() =>
-                                  addBulletPoint("positions", pos.id)
-                                }
-                                className="h-8 text-xs bg-gray-700 hover:bg-gray-600 border-gray-600 text-blue-300"
-                              >
-                                <PlusCircle className="h-3 w-3 mr-1" />
-                                Add Point
-                              </Button>
-                            </div>
-                            {pos.bulletPoints.map((point, i) => (
-                              <div key={i} className="flex items-start mb-2">
-                                <div className="flex-grow">
-                                  <div className="flex items-center">
-                                    <span className="mr-2 text-gray-500">
-                                      •
-                                    </span>
-                                    <Input
-                                      value={point}
-                                      placeholder={`Bullet point ${i + 1}`}
-                                      onChange={(e) =>
-                                        updateBulletPoint(
-                                          "positions",
-                                          pos.id,
-                                          i,
-                                          e.target.value
-                                        )
-                                      }
-                                      className="bg-gray-700 border-gray-600 text-gray-100"
-                                    />
-                                  </div>
-                                </div>
-                                <div className="flex ml-2">
-                                  <Button
-                                    variant="outline"
-                                    size="icon"
-                                    className="h-10 w-10 bg-gray-700 hover:bg-gray-600 border-gray-600 text-blue-300"
-                                    onClick={() =>
-                                      generateAISuggestions(
-                                        "positions",
-                                        pos.id,
-                                        i
-                                      )
-                                    }
-                                  >
-                                    <Sparkles className="h-4 w-4" />
-                                  </Button>
-                                  {pos.bulletPoints.length > 1 && (
-                                    <Button
-                                      variant="outline"
-                                      size="icon"
-                                      className="h-10 w-10 ml-1 bg-gray-700 hover:bg-gray-600 border-gray-600 text-red-300"
-                                      onClick={() =>
-                                        removeBulletPoint(
-                                          "projects",
-                                          pos.id,
-                                          i
-                                        )
-                                      }
-                                    >
-                                      <Trash2 className="h-4 w-4" />
-                                    </Button>
-                                  )}
-                                </div>
-                              </div>
-                            ))}
-
-                          </div>
-                        </div>
-                      ))}
-
-                    
-
-                      <Button
-                        variant="outline"
-                        onClick={addPosition}
-                        className="w-full bg-gray-700 hover:bg-gray-600 border-gray-600 text-blue-300"
-                      >
-                        <PlusCircle className="h-4 w-4 mr-2" />
-                        Add Position
-                      </Button>
+                    <PositionsForm
+                formData={formData}
+                updatePosition={updatePosition}
+                removePosition={removePosition}
+                addPosition={addPosition}
+                addBulletPoint={addBulletPoint}
+                updateBulletPoint={updateBulletPoint}
+                removeBulletPoint={removeBulletPoint}
+                generateAISuggestions={generateAISuggestions}
+              />
                     </TabsContent>
 
                     <TabsContent value="projects" className="space-y-6 mt-0">
-                      {formData.projects.map((proj, index) => (
-                        <div
-                          key={proj.id}
-                          className="space-y-4 pb-6 border-b border-gray-700 last:border-0"
-                        >
-                          <div className="flex justify-between items-center">
-                            <h3 className="font-medium text-blue-300">
-                              Project #{index + 1}
-                            </h3>
-                            {formData.projects.length > 1 && (
-                              <Button
-                                variant="outline"
-                                size="icon"
-                                onClick={() => removeProject(proj.id)}
-                                className="bg-gray-700 hover:bg-gray-600 border-gray-600 text-red-300"
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </Button>
-                            )}
-                          </div>
-
-                          <div>
-                            <Label
-                              htmlFor={`project-title-${proj.id}`}
-                              className="text-gray-300"
-                            >
-                              Project Title
-                            </Label>
-                            <Input
-                              id={`project-title-${proj.id}`}
-                              placeholder="E-commerce Dashboard"
-                              value={proj.title}
-                              onChange={(e) =>
-                                updateProject(proj.id, "title", e.target.value)
-                              }
-                              className="bg-gray-700 border-gray-600 text-gray-100"
-                            />
-                          </div>
-
-                          <div>
-                            <Label
-                              htmlFor={`project-link-${proj.id}`}
-                              className="text-gray-300"
-                            >
-                              Live Preview Link
-                            </Label>
-                            <div className="flex">
-                              <Input
-                                id={`project-link-${proj.id}`}
-                                placeholder="https://yourproject.com"
-                                value={proj.liveLink}
-                                onChange={(e) =>
-                                  updateProject(
-                                    proj.id,
-                                    "liveLink",
-                                    e.target.value
-                                  )
-                                }
-                                className="bg-gray-700 border-gray-600 text-gray-100"
-                              />
-                              {proj.liveLink && (
-                                <a
-                                  href={proj.liveLink}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="ml-2 inline-flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 hover:bg-blue-700"
-                                >
-                                  <LinkIcon className="h-4 w-4 text-white" />
-                                </a>
-                              )}
-                            </div>
-                          </div>
-
-                          <div>
-                            <div className="flex items-center justify-between mb-2">
-                              <Label className="text-gray-300">
-                                Description (Bullet Points)
-                              </Label>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() =>
-                                  addBulletPoint("projects", proj.id)
-                                }
-                                className="h-8 text-xs bg-gray-700 hover:bg-gray-600 border-gray-600 text-blue-300"
-                              >
-                                <PlusCircle className="h-3 w-3 mr-1" />
-                                Add Point
-                              </Button>
-                            </div>
-
-                            {proj.bulletPoints.map((point, i) => (
-                              <div key={i} className="flex items-start mb-2">
-                                <div className="flex-grow">
-                                  <div className="flex items-center">
-                                    <span className="mr-2 text-gray-500">
-                                      •
-                                    </span>
-                                    <Input
-                                      value={point}
-                                      placeholder={`Bullet point ${i + 1}`}
-                                      onChange={(e) =>
-                                        updateBulletPoint(
-                                          "projects",
-                                          proj.id,
-                                          i,
-                                          e.target.value
-                                        )
-                                      }
-                                      className="bg-gray-700 border-gray-600 text-gray-100"
-                                    />
-                                  </div>
-                                </div>
-                                <div className="flex ml-2">
-                                  <Button
-                                    variant="outline"
-                                    size="icon"
-                                    className="h-10 w-10 bg-gray-700 hover:bg-gray-600 border-gray-600 text-blue-300"
-                                    onClick={() =>
-                                      generateAISuggestions(
-                                        "project",
-                                        proj.id,
-                                        i
-                                      )
-                                    }
-                                  >
-                                    <Sparkles className="h-4 w-4" />
-                                  </Button>
-                                  {proj.bulletPoints.length > 1 && (
-                                    <Button
-                                      variant="outline"
-                                      size="icon"
-                                      className="h-10 w-10 ml-1 bg-gray-700 hover:bg-gray-600 border-gray-600 text-red-300"
-                                      onClick={() =>
-                                        removeBulletPoint(
-                                          "projects",
-                                          proj.id,
-                                          i
-                                        )
-                                      }
-                                    >
-                                      <Trash2 className="h-4 w-4" />
-                                    </Button>
-                                  )}
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-
-                      <Button
-                        variant="outline"
-                        onClick={addProject}
-                        className="w-full bg-gray-700 hover:bg-gray-600 border-gray-600 text-blue-300"
-                      >
-                        <PlusCircle className="h-4 w-4 mr-2" />
-                        Add Project
-                      </Button>
+                    <SkillsForm
+                formData={formData}
+                updateSkill={updateSkill}
+                removeSkill={removeSkill}
+                addSkill={addSkill}
+              />
                     </TabsContent>
 
 
