@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt, { SignOptions } from "jsonwebtoken";
 
 export interface IUser extends Document {
+  _id: Schema.Types.ObjectId;
   email: string;
   fullName: string;
   password: string;
