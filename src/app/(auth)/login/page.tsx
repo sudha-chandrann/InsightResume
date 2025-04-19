@@ -91,7 +91,6 @@ function Login() {
           description: response.data.message || "Login successful!",
           variant: "default"
         });
-        localStorage.setItem('token', response.data.token);
         router.push('/dashboard');
       } else {
         toast({
